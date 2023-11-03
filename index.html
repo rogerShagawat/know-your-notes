@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
+<html lang="en">
 
 <head>
    <meta charset="utf-8">
@@ -17,28 +13,29 @@
 </head>
 
 <body>
-   <!--[if lt IE 7]>
-         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-      <![endif]-->
+
+   <div class="score-counter">
+
+   </div>
 
    <script src="script.js" async defer></script>
    <div class="d-flex  justify-content-center">
-      <img id="note-image" src="">
+      <img id="note-image" src="./assets/a-treble.png" alt="The note image">
    </div>
 
-   <div class="d-flex flex-row justify-content-around">
+   <div class="d-flex flex-row justify-content-around" id="note-buttons">
 
+
+      <button type="button" class="btn a" id="a">A</button>
+      <button type="button" class="btn b" id="b">B</button>
+      <button type="button" class="btn c" id="c">C</button>
+      <button type="button" class="btn d" id="d">D</button>
+      <button type="button" class="btn e" id="e">E</button>
+      <button type="button" class="btn f" id="f">F</button>
+      <button type="button" class="btn g" id="g">G</button>
+
+   </div>
    
-      <button type="button" class="btn a">A</button>
-      <button type="button" class="btn b">B</button>
-      <button type="button" class="btn c">C</button>
-      <button type="button" class="btn d">D</button>
-      <button type="button" class="btn e">E</button>
-      <button type="button" class="btn f">F</button>
-      <button type="button" class="btn g">G</button>
-
-   </div>
-   </div>
    <nav class="navbar fixed-bottom navbar-light bg-light">
 
       <!-- Default dropup button -->
@@ -53,7 +50,7 @@
                   d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z" />
             </svg>
          </button>
-         <div class="dropdown-menu">
+         <div class="dropdown-menu">Settings?
          </div>
       </div>
    </nav>
