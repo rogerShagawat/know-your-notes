@@ -1,29 +1,84 @@
 /* See the paper Music and Visual Color: A Proposed Correlation here: https://www.jstor.org/stable/1577978 */
 .btn.a {
-    background-color: indigo;
-    
+   background-color: indigo;
 }
 
 .btn.b {
-    background-color: violet;
+   background-color: violet;
 }
 
 .btn.c {
-    background-color: red;
+   background-color: red;
 }
 
 .btn.d {
-    background-color: orange;
+   background-color: orange;
 }
 
 .btn.e {
-    background-color: yellow;
+   background-color: yellow;
 }
 
 .btn.f {
-    background-color: green;
+   background-color: green;
 }
 
 .btn.g {
-    background-color: blue;
+   background-color: blue;
 }
+
+/* .menu {
+   padding: 20px
+} */
+
+.menu-instrument {
+   width: 200px;
+   height: 150px;
+}
+
+/* Dropdown Button */
+.dropbtn {
+   background-color: #88abc2;
+   color: white;
+   padding: 10px;
+   font-size: 0px;
+   border: none;
+   cursor: pointer;
+   border-radius: 20px;
+ }
+ 
+ /* Dropdown button on hover & focus */
+ .dropbtn:hover, .dropbtn:focus {
+   background-color: #384852;
+ }
+ 
+ /* The container <div> - needed to position the dropdown content */
+ .dropdown {
+   position: relative;
+   display: inline-block;
+ }
+ 
+ /* Dropdown Content (Hidden by Default) */
+ .dropdown-content {
+   display: none;
+   position: absolute;
+   padding: 20px;
+   background-color: #f1f1f1;
+   min-width: 160px;
+   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+   z-index: 1;
+ }
+ 
+ /* Links inside the dropdown */
+ .dropdown-content a {
+   color: black;
+   padding: 12px 16px;
+   text-decoration: none;
+   display: block;
+ }
+ 
+ /* Change color of dropdown links on hover */
+ .dropdown-content a:hover {background-color: #ddd;}
+ 
+ /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+ .show {display:block;}
