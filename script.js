@@ -4,9 +4,13 @@ function generateRandomNote() {
    return Math.floor(Math.random() * 7) + 97;
 }
 
-function isCorrect(selectedNote) {
+function getCorrectNote() {
    const noteSrc = document.getElementById("note-image").src;
    const correctNote = noteSrc.split("/").pop().split("-")[0];
+   return correctNote
+}
+function isCorrect(selectedNote) {
+   correctNote= getCorrectNote()
    if (selectedNote !== correctNote) {
       return false;
    }
@@ -17,15 +21,32 @@ function resetButtons() {
    // TODO reset the CSS of the buttons when failed
 }
 
+function setMessage(message) {
+   document.getElementById("message").innerText = message
+
+}
+function clearMessage() {
+   setMessage("")
+}
+
+function showCorrectMessage() {
+   setMessage("Correct!")
+}
+
+function showIncorrectMessage(){
+   setMessage(`Sorry, the correct note is ${correctNote.toUpperCase()}`)
+}
+
 function runOnCorrect() {
-   console.log("correct!");
-   getRandomImageForClef();
-   resetButtons();
+   showCorrectMessage();
+
    // TODO should display on screen positive affirmation
 }
 
+
+
 function runOnIncorrect() {
-   console.log("failure!");
+   showIncorrectMessage()
    // TODO change css of the buttons so that they're greyed out when gotten wrong
 }
 
@@ -36,6 +57,11 @@ function onNoteSelection(event) {
    } else {
       runOnIncorrect();
    }
+   setTimeout(() => {
+      getRandomImageForClef();
+      resetButtons();
+      clearMessage();
+   }, 3000);
 }
 function getRandomImageForClef() {
    noteName = String.fromCharCode(generateRandomNote());
@@ -51,9 +77,9 @@ parent.addEventListener("click", onNoteSelection);
 
 function myFunction() {
    document.getElementById("myDropdown").classList.toggle("show");
- }
- 
- // Close the dropdown menu if the user clicks outside of it
+}
+
+// Close the dropdown menu if the user clicks outside of it
 //  window.onclick = function(event) {
 //    if (!event.target.matches('.dropbtn')) {
 //      var dropdowns = document.getElementsByClassName("dropdown-content");
