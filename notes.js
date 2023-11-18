@@ -51,7 +51,8 @@ function onNoteSelection(event) {
 }
 function getRandomImageForClef() {
     noteName = String.fromCharCode(generateRandomNote());
-    clef = "treble";
+    instrumentSelector = document.getElementById("instrument-selector");
+    console.log(instrumentSelector.value) 
     console.log(noteName);
     document.getElementById("note-image").src = `assets/${noteName}-${clef}.png`;
 }
