@@ -21,6 +21,8 @@
    <script src="script.js" async defer></script>
    <script src="messages.js" async defer></script>
    <script src="notes.js" async defer></script>
+   <script src="note-buttons.js" async defer></script>
+
    <div class="d-flex  justify-content-center">
       <img id="note-image" src="./assets/a-treble.png" alt="The note image">
    </div>
@@ -119,7 +121,7 @@
          <div class="menu-color-notes">
             <label class="switch">
                Color Notes
-               <input type="checkbox" id="color-notes">
+               <input type="checkbox" id="color-notes" onclick = "toggleButtonColors(this.checked)" checked>
                <span class="slider round"></span>
             </label>
          </div>
