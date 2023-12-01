@@ -27,7 +27,19 @@
       <img id="note-image" src="./assets/a-treble.png" alt="The note image">
    </div>
 
-   <div class="d-flex flex-row justify-content-around" id="note-buttons">
+   <div class="d-flex justify-content-around" id="note-buttons-sharps" style="visibility: hidden;">
+
+
+      <button type="button" class="btn a" id="a">A#</button>
+      <button type="button" class="btn b" id="b">B#</button>
+      <button type="button" class="btn c" id="c">C#</button>
+      <button type="button" class="btn d" id="d">D#</button>
+      <button type="button" class="btn e" id="e">E#</button>
+      <button type="button" class="btn f" id="f">F#</button>
+      <button type="button" class="btn g" id="g">G#</button>
+
+   </div>
+   <div class="d-flex flex-row justify-content-around mb-3 mt-3" id="note-buttons">
 
 
       <button type="button" class="btn a" id="a">A</button>
@@ -37,6 +49,18 @@
       <button type="button" class="btn e" id="e">E</button>
       <button type="button" class="btn f" id="f">F</button>
       <button type="button" class="btn g" id="g">G</button>
+
+   </div>
+   <div class="d-flex flex-row justify-content-around" id="note-buttons-flats"style="visibility: hidden;">
+
+
+      <button type="button" class="btn a" id="a">Ab</button>
+      <button type="button" class="btn b" id="b">Bb</button>
+      <button type="button" class="btn c" id="c">Cb</button>
+      <button type="button" class="btn d" id="d">Db</button>
+      <button type="button" class="btn e" id="e">Eb</button>
+      <button type="button" class="btn f" id="f">Fb</button>
+      <button type="button" class="btn g" id="g">Gb</button>
 
    </div>
    <div class="d-flex  justify-content-center">
@@ -105,7 +129,7 @@
          <div class="menu-accidentals">
             <label class="switch">
                Use Accidentals
-               <input type="checkbox" id="accidentals">
+               <input type="checkbox" id="accidentals" onclick = "toggleAccidentalMode(this.checked)">
                <span class="slider round"></span>
             </label>
          </div>
