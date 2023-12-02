@@ -106,3 +106,60 @@ span.score-counter {
 .uncolored {
    background-color: lightgrey !important;
 }
+
+#start {
+   background-color: #009779;
+}
+
+#stop {
+   background-color: #0e85fc;
+}
+
+#reset {
+   background-color: #c91400;
+}
+
+.timer.container {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.btn {
+   text-decoration: none;
+   border: none;
+   padding: 12px 40px;
+   font-size: 16px;
+   background-color: green;
+   color: #fff;
+   border-radius: 5px;
+   box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
+   cursor: pointer;
+   outline: none;
+   transition: 0.2s all;
+}
+
+/* Adding transformation when the button is active */
+
+.btn:hover {
+   transform: scale(1.05);
+}
+
+.btn:active {
+   transform: scale(0.97);
+   /* Scaling button to 0.98 to its original size */
+   box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+   /* Lowering the shadow */
+}
+
+#message {
+   animation: pop 0.5s ease-in-out;
+   animation-delay: 0s;
+ }
+ 
+ @keyframes pop {
+   50%  {
+     transform: scale(1.25);
+   }
+ }

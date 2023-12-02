@@ -22,10 +22,12 @@ function generateRandomNote(isAccidentalOn) {
 }
 
 function setMessage(message) {
-   let messageElement = document.getElementById("message");
-   messageElement.classList.remove(["visible"]);
-   messageElement.classList.add(["hidden"]);
-   messageElement.innerText = message;
+   document.getElementById("message").remove();
+   let messageContainer = document.getElementById("message-container");
+   let messageElement = document.createElement("h2");
+   messageElement.innerHTML = message;
+   messageElement.id = "message";
+   messageContainer.appendChild(messageElement);
 }
 
 function getRandomImageForClef() {
@@ -127,8 +129,12 @@ window.onload = getRandomImageForClef();
 window.onload = toggleAccidentalVisibility();
 window.onload = toggleButtonColors();
 
-let noteButtons = document.getElementById("all-note-buttons");
-noteButtons.addEventListener("click", onNoteSelection);
+// let noteButtons = document.getElementById("all-note-buttons");
+// noteButtons.addEventListener("click", onNoteSelection);
+let noteButtons = document.querySelectorAll(".note.btn");
+noteButtons.forEach((button) =>
+   button.addEventListener("click", onNoteSelection)
+);
 
 let instrumentSelector = document.getElementById("instrument-selector");
 instrumentSelector.addEventListener("change", getRandomImageForClef);
@@ -138,3 +144,10 @@ colorCheckbox.addEventListener("change", toggleButtonColors);
 
 let accidentalsCheckbox = document.getElementById("accidentals");
 accidentalsCheckbox.addEventListener("change", toggleAccidentalVisibility);
+
+document.getElementById("reset").addEventListener("click", () => {
+   totalIncorrect = 0;
+   totalCorrect = 0;
+   isFirstClick = true;
+   updateCounters();
+});
