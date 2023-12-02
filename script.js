@@ -3,10 +3,22 @@ let totalCorrect = 0;
 let currentNote = 0;
 let isFirstClick = true;
 
-function generateRandomNote() {
+function generateRandomNote(isAccidentalOn) {
    //Returns a number
    //E.g. 65 (which represents A)
-   return Math.floor(Math.random() * 7) + 97;
+   const noteLetter = String.fromCharCode(Math.floor(Math.random() * 7) + 97);
+   if (isAccidentalOn) {
+      const accidentalness = Math.floor(Math.random() * 3);
+      if (accidentalness === 0) {
+         return `${noteLetter}`;
+      } else if (accidentalness === 1) {
+         return `${noteLetter}-flat`;
+      } else {
+         return `${noteLetter}-sharp`;
+      }
+   } else {
+      return noteLetter;
+   }
 }
 
 function setMessage(message) {
@@ -17,33 +29,21 @@ function setMessage(message) {
 }
 
 function getRandomImageForClef() {
-   accidental = 0;
+   let isAccidentalOn = false;
 
    var accidentalModeCheckbox = document.getElementById("accidentals");
 
    if (accidentalModeCheckbox.checked) {
       //natural = 0, flat = 1, sharp =2
-      accidental = Math.floor(Math.random() * 3);
+      isAccidentalOn = true;
    }
-   noteName = String.fromCharCode(generateRandomNote());
-   instrumentSelector = document.getElementById("instrument-selector");
+   noteName = generateRandomNote(isAccidentalOn);
+   let instrumentSelector = document.getElementById("instrument-selector");
    clef = instrumentSelector.value;
    console.log(noteName);
    currentNote = noteName;
 
-   if (accidental == 0) {
-      document.getElementById(
-         "note-image"
-      ).src = `assets/${noteName}-${clef}.png`;
-   } else if (accidental == 1) {
-      document.getElementById(
-         "note-image"
-      ).src = `assets/${noteName}-flat-${clef}.png`;
-   } else if (accidental == 2) {
-      document.getElementById(
-         "note-image"
-      ).src = `assets/${noteName}-sharp-${clef}.png`;
-   }
+   document.getElementById("note-image").src = `assets/${noteName}-${clef}.png`;
 }
 
 function updateCounters() {
@@ -54,40 +54,33 @@ function updateCounters() {
 }
 
 function toggleButtonColors() {
-   console.log("hey");
-   if (this.checked) {
-      document.getElementById("a").style.backgroundColor = "indigo";
-      document.getElementById("b").style.backgroundColor = "violet";
-      document.getElementById("c").style.backgroundColor = "red";
-      document.getElementById("d").style.backgroundColor = "orange";
-      document.getElementById("e").style.backgroundColor = "yellow";
-      document.getElementById("f").style.backgroundColor = "green";
-      document.getElementById("g").style.backgroundColor = "blue";
+   if (document.getElementById("color-notes").checked) {
+      Object.keys(buttonNotes).forEach((button) =>
+         buttonNotes[button].classList.remove("uncolored")
+      );
+      // document.getElementById("a").style.backgroundColor = "indigo";
+      // document.getElementById("b").style.backgroundColor = "violet";
+      // document.getElementById("c").style.backgroundColor = "red";
+      // document.getElementById("d").style.backgroundColor = "orange";
+      // document.getElementById("e").style.backgroundColor = "yellow";
+      // document.getElementById("f").style.backgroundColor = "green";
+      // document.getElementById("g").style.backgroundColor = "blue";
    } else {
-      document.getElementById("a").style.backgroundColor = "lightgray";
-      document.getElementById("b").style.backgroundColor = "lightgray";
-      document.getElementById("c").style.backgroundColor = "lightgray";
-      document.getElementById("d").style.backgroundColor = "lightgray";
-      document.getElementById("e").style.backgroundColor = "lightgray";
-      document.getElementById("f").style.backgroundColor = "lightgray";
-      document.getElementById("g").style.backgroundColor = "lightgray";
-      // for (let i = 0; i <= 7; i++) {
-      //    document.getElementById(
-      //       String.fromCharCode(i + 97)
-      //    ).style.backgroundColor = "lightgray";
-      // }
+      Object.keys(buttonNotes).forEach((button) =>
+         buttonNotes[button].classList.add("uncolored")
+      );
    }
 }
 
 function onNoteSelection(event) {
    if (isFirstClick) {
-      // TODO start the timer
       timer = true;
       stopWatch(); // in timer.js
       isFirstClick = false;
    }
 
    var selectedNote = event.target.id;
+   console.log(selectedNote);
    if (selectedNote === currentNote) {
       // Correct
       totalCorrect++;
@@ -102,6 +95,28 @@ function onNoteSelection(event) {
    updateCounters();
 }
 
+function toggleAccidentalVisibility() {
+   getRandomImageForClef();
+   console.log(`Checked: ${document.getElementById("accidentals").checked}`);
+   if (document.getElementById("accidentals").checked) {
+      Object.keys(buttonNotes).forEach((button) => {
+         if (
+            button.toLowerCase().includes("sharp") ||
+            button.toLowerCase().includes("flat")
+         )
+            buttonNotes[button].style.visibility = "visible";
+      });
+   } else {
+      Object.keys(buttonNotes).forEach((button) => {
+         if (
+            button.toLowerCase().includes("sharp") ||
+            button.toLowerCase().includes("flat")
+         )
+            buttonNotes[button].style.visibility = "hidden";
+      });
+   }
+}
+
 // Listeners/Events
 
 function settingsDropdownEvent() {
@@ -109,12 +124,17 @@ function settingsDropdownEvent() {
 }
 
 window.onload = getRandomImageForClef();
+window.onload = toggleAccidentalVisibility();
+window.onload = toggleButtonColors();
 
-var noteButtons = document.getElementById("note-buttons");
+let noteButtons = document.getElementById("all-note-buttons");
 noteButtons.addEventListener("click", onNoteSelection);
 
-var instrumentSelector = document.getElementById("instrument-selector");
+let instrumentSelector = document.getElementById("instrument-selector");
 instrumentSelector.addEventListener("change", getRandomImageForClef);
 
-var colorCheckbox = document.getElementById("color-notes");
-colorCheckbox.addEventListener("click", toggleButtonColors);
+let colorCheckbox = document.getElementById("color-notes");
+colorCheckbox.addEventListener("change", toggleButtonColors);
+
+let accidentalsCheckbox = document.getElementById("accidentals");
+accidentalsCheckbox.addEventListener("change", toggleAccidentalVisibility);

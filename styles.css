@@ -27,6 +27,11 @@
    background-color: blue;
 }
 
+.btn {
+   height: 50px;
+   width: 50px;
+}
+
 /* .menu {
    padding: 20px
 } */
@@ -96,4 +101,8 @@
 
 span.score-counter {
    margin: 5px;
+}
+
+.uncolored {
+   background-color: lightgrey !important;
 }
