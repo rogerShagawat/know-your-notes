@@ -18,7 +18,9 @@ stopBtn.addEventListener("click", function () {
 });
 
 resetBtn.addEventListener("click", function () {
-   isFirstClick = true; //in script.js
+   totalIncorrect = 0; //in script.js
+   totalCorrect = 0; //in script.js
+   isFirstClick = true; //in script.js 
    timer = false;
    hour = 0;
    minute = 0;
