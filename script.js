@@ -4,8 +4,6 @@ let currentNote = 0;
 let isFirstClick = true;
 
 function generateRandomNote(isAccidentalOn) {
-   //Returns a number
-   //E.g. 65 (which represents A)
    const noteLetter = String.fromCharCode(Math.floor(Math.random() * 7) + 97);
    if (isAccidentalOn) {
       const accidentalness = Math.floor(Math.random() * 3);
@@ -60,13 +58,6 @@ function toggleButtonColors() {
       Object.keys(buttonNotes).forEach((button) =>
          buttonNotes[button].classList.remove("uncolored")
       );
-      // document.getElementById("a").style.backgroundColor = "indigo";
-      // document.getElementById("b").style.backgroundColor = "violet";
-      // document.getElementById("c").style.backgroundColor = "red";
-      // document.getElementById("d").style.backgroundColor = "orange";
-      // document.getElementById("e").style.backgroundColor = "yellow";
-      // document.getElementById("f").style.backgroundColor = "green";
-      // document.getElementById("g").style.backgroundColor = "blue";
    } else {
       Object.keys(buttonNotes).forEach((button) =>
          buttonNotes[button].classList.add("uncolored")

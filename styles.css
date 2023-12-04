@@ -82,19 +82,9 @@
    background-color: #ddd;
 }
 
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+/* Show the dropdown menu */
 .show {
    display: block;
-}
-
-.score-counters {
-   display: flex;
-   margin: 5px;
-   justify-content: center;
-}
-
-span.score-counter {
-   margin: 5px;
 }
 
 .uncolored {
@@ -113,11 +103,42 @@ span.score-counter {
    background-color: #c91400;
 }
 
-.timer.container {
+#score-and-timer {
    display: flex;
-   flex-direction: column;
+   border-radius: 1px;
+   border: red;
+   border-style: solid;
+   flex-direction: row;
    justify-content: center;
    align-items: center;
+}
+
+.timer.container {
+   border-radius: 1px;
+   border: #009779;
+   width: 200px;
+   border-style: solid;
+   background-color: lightgray;
+   text-align: center;
+}
+
+#time {
+   font-size: 1.5rem;
+}
+
+#score-counter-container {
+   /* display: flexbox; */
+   margin: 5px;
+   width: 100px;
+   /* float:left; */
+   /* justify-content: center; */
+   border-radius: 1px;
+   border: blue;
+   border-style: solid;
+}
+
+span.score-counter {
+   margin: 5px;
 }
 
 .btn {

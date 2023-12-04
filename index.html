@@ -62,31 +62,34 @@
 
    </div>
 
-   <div class="timer container">
-      <div id="time">
-         <span class="digit" id="hr">
-            00</span>
-         <span class="txt">:</span>
-         <span class="digit" id="min">
-            00</span>
-         <span class="txt">:</span>
-         <span class="digit" id="sec">
-            00</span>
+   <div id="score-and-timer">
+      <div class="timer container">
+         <div id="time">
+            <span class="digit" id="hr">
+               00</span>
+            <span class="txt">:</span>
+            <span class="digit" id="min">
+               00</span>
+            <span class="txt">:</span>
+            <span class="digit" id="sec">
+               00</span>
+         </div>
+         <div id="buttons">
+            <button class="timerbtn" id="start">
+               Start</button>
+            <button class="timerbtn" id="stop">
+               Stop</button>
+            <button class="timerbtn" id="reset">
+               Reset</button>
+         </div>
       </div>
-      <div id="buttons">
-         <button class="timerbtn" id="start">
-            Start</button>
-         <button class="timerbtn" id="stop">
-            Stop</button>
-         <button class="timerbtn" id="reset">
-            Reset</button>
+
+      <div id="score-counter-container">
+         <span class="score-counter" id="correct-counter">Correct: 0</span>
+         <span class="score-counter" id="incorrect-counter">Incorrect:0</span>
       </div>
    </div>
 
-   <div class="score-counters">
-      <span class="score-counter" id="correct-counter">Correct: 0</span>
-      <span class="score-counter" id="incorrect-counter">Incorrect:0</span>
-   </div>
 
    <div class="d-flex  justify-content-center">
       <img id="note-image" src="./assets/a-treble.png" alt="The note image" width="400" height="300">
