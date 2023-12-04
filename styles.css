@@ -62,7 +62,10 @@
 .dropdown-content {
    display: none;
    position: absolute;
-   padding: 20px;
+   border: #384852;
+   border-radius: 1px;
+   border-style: solid;
+   padding: 15px;
    background-color: #f1f1f1;
    min-width: 160px;
    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -105,19 +108,15 @@
 
 #score-and-timer {
    display: flex;
-   border-radius: 1px;
-   border: red;
-   border-style: solid;
    flex-direction: row;
    justify-content: center;
    align-items: center;
+
 }
 
 .timer.container {
    border-radius: 1px;
-   border: #009779;
    width: 200px;
-   border-style: solid;
    background-color: lightgray;
    text-align: center;
 }
@@ -126,19 +125,18 @@
    font-size: 1.5rem;
 }
 
-#score-counter-container {
-   /* display: flexbox; */
-   margin: 5px;
-   width: 100px;
-   /* float:left; */
-   /* justify-content: center; */
+.score.container {
+   margin-left: 5px;
+   background-color: lightgray;
+   width: 150px;
    border-radius: 1px;
-   border: blue;
-   border-style: solid;
+   font-size: 1rem;
+   text-align: center;
 }
 
-span.score-counter {
+.score-counter {
    margin: 5px;
+   font-size: large;
 }
 
 .btn {

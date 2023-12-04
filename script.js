@@ -2,6 +2,7 @@ let totalIncorrect = 0;
 let totalCorrect = 0;
 let currentNote = 0;
 let isFirstClick = true;
+let isDropDownOpen = false;
 
 function generateRandomNote(isAccidentalOn) {
    const noteLetter = String.fromCharCode(Math.floor(Math.random() * 7) + 97);
@@ -73,7 +74,7 @@ function onNoteSelection(event) {
    }
 
    var selectedNote = event.target.id;
-   console.log(selectedNote);
+   // console.log(selectedNote);
    if (selectedNote === currentNote) {
       // Correct
       totalCorrect++;
@@ -90,7 +91,7 @@ function onNoteSelection(event) {
 
 function toggleAccidentalVisibility() {
    getRandomImageForClef();
-   console.log(`Checked: ${document.getElementById("accidentals").checked}`);
+   // console.log(`Checked: ${document.getElementById("accidentals").checked}`);
    if (document.getElementById("accidentals").checked) {
       Object.keys(buttonNotes).forEach((button) => {
          if (
@@ -113,7 +114,14 @@ function toggleAccidentalVisibility() {
 // Listeners/Events
 
 function settingsDropdownEvent() {
-   document.getElementById("myDropdown").classList.toggle("show");
+   let drop = document.getElementById("myDropdown");
+   // console.log("here");
+   drop.classList.toggle("show");
+   if (drop.classList.value.includes("show")) {
+      isDropDownOpen = true;
+   } else {
+      isDropDownOpen = false;
+   }
 }
 
 window.onload = getRandomImageForClef();
@@ -142,3 +150,13 @@ document.getElementById("reset").addEventListener("click", () => {
    isFirstClick = true;
    updateCounters();
 });
+
+function clickOffDropdown(event) {
+   const target = event.target.closest("#dropdown");
+   if (!target && isDropDownOpen) {
+      document.getElementById("myDropdown").classList.toggle("show");
+      isDropDownOpen = false;
+   }
+}
+
+window.addEventListener("click", clickOffDropdown);
