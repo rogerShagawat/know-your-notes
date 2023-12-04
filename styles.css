@@ -1,6 +1,7 @@
 /* See the paper Music and Visual Color: A Proposed Correlation here: https://www.jstor.org/stable/1577978 */
+
 .btn.a {
-   background-color: indigo;
+   background-color: rgb(173, 92, 231)
 }
 
 .btn.b {
@@ -8,7 +9,7 @@
 }
 
 .btn.c {
-   background-color: red;
+   background-color: rgb(249, 65, 65);
 }
 
 .btn.d {
@@ -20,21 +21,13 @@
 }
 
 .btn.f {
-   background-color: green;
+   background-color: rgb(8, 215, 8);
 }
 
 .btn.g {
-   background-color: blue;
+   background-color: rgb(0, 204, 255);
 }
 
-.btn {
-   height: 50px;
-   width: 50px;
-}
-
-/* .menu {
-   padding: 20px
-} */
 
 .menu-instrument {
    width: 150px;
@@ -62,6 +55,7 @@
 .dropdown {
    position: relative;
    display: inline-block;
+   margin: 10px;
 }
 
 /* Dropdown Content (Hidden by Default) */
@@ -127,8 +121,9 @@ span.score-counter {
 }
 
 .btn {
-   text-decoration: none;
-   border: none;
+   /* text-decoration: none; */
+   /* border: black; */
+   font-weight: bold;
    padding: 12px 40px;
    font-size: 16px;
    background-color: green;
@@ -138,6 +133,8 @@ span.score-counter {
    cursor: pointer;
    outline: none;
    transition: 0.2s all;
+   height: 50px;
+   width: 50px;
 }
 
 /* Adding transformation when the button is active */
@@ -156,10 +153,10 @@ span.score-counter {
 #message {
    animation: pop 0.5s ease-in-out;
    animation-delay: 0s;
- }
- 
- @keyframes pop {
-   50%  {
-     transform: scale(1.25);
+}
+
+@keyframes pop {
+   50% {
+      transform: scale(1.25);
    }
- }
+}

@@ -7,20 +7,22 @@ let hour = 0;
 let minute = 0;
 let second = 0;
 let count = 0;
+let stopWatchExists = false;
 
 startBtn.addEventListener("click", function () {
    timer = true;
-   stopWatch();
+   if (!stopWatchExists) {
+      stopWatchExists = true;
+      stopWatch();
+   }
 });
 
 stopBtn.addEventListener("click", function () {
    timer = false;
+   stopWatchExists = false;
 });
 
 resetBtn.addEventListener("click", function () {
-   totalIncorrect = 0; //in script.js
-   totalCorrect = 0; //in script.js
-   isFirstClick = true; //in script.js 
    timer = false;
    hour = 0;
    minute = 0;
@@ -29,6 +31,7 @@ resetBtn.addEventListener("click", function () {
    document.getElementById("hr").innerHTML = "00";
    document.getElementById("min").innerHTML = "00";
    document.getElementById("sec").innerHTML = "00";
+   stopWatchExists = false;
 });
 
 function stopWatch() {
@@ -75,6 +78,7 @@ function stopWatch() {
       document.getElementById("hr").innerHTML = hrString;
       document.getElementById("min").innerHTML = minString;
       document.getElementById("sec").innerHTML = secString;
+
       setTimeout(stopWatch, 10);
    }
 }
