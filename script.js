@@ -116,6 +116,11 @@ function onNoteSelection(event) {
       isFirstClick = false;
    }
 
+   const div = document.getElementById("feedback-note");
+   while (div.hasChildNodes()) {
+      div.removeChild(div.lastChild);
+   }
+
    var selectedNote = event.target.id;
    // console.log(selectedNote);
    if (selectedNote === currentNote) {
