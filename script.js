@@ -1,3 +1,33 @@
+const clefOctave = {
+   treble: {
+      a: 4,
+      b: 4,
+      c: 5,
+      d: 5,
+      e: 5,
+      f: 4,
+      g: 4,
+   },
+   bass: {
+      a: 2,
+      b: 2,
+      c: 3,
+      d: 3,
+      e: 3,
+      f: 3,
+      g: 3,
+   },
+   alto: {
+      a: 3,
+      b: 3,
+      c: 4,
+      d: 4,
+      e: 4,
+      f: 4,
+      g: 3,
+   },
+};
+
 let totalIncorrect = 0;
 let totalCorrect = 0;
 let currentNote = "";
@@ -46,6 +76,7 @@ function getRandomImageForClef() {
 
    let instrumentSelector = document.getElementById("instrument-selector");
    clef = instrumentSelector.value;
+   currentClef = clef;
 
    renderNote(noteName, clef);
 
@@ -75,6 +106,10 @@ function toggleButtonColors() {
 }
 
 function onNoteSelection(event) {
+   if (document.getElementById("play-sound").checked) {
+      playNote(currentNote, currentClef);
+   }
+
    if (isFirstClick) {
       timer = true;
       startTimer(); // in timer.js
@@ -170,35 +205,42 @@ function clickOffDropdown(event) {
 window.addEventListener("click", clickOffDropdown);
 
 function renderNote(note, clef) {
-   console.log(`${note}, ${clef}`);
    const { Accidental, Formatter, Renderer, Stave, StaveNote } = Vex.Flow;
+
    const noteDict = {
       a: new StaveNote({
-         keys: [`a/4`],
+         clef: clef,
+         keys: [`a/${clefOctave[clef].a}`],
          duration: "q",
       }),
       b: new StaveNote({
-         keys: [`b/4`],
+         clef: clef,
+         keys: [`b/${clefOctave[clef].b}`],
          duration: "q",
       }),
       c: new StaveNote({
-         keys: [`c/5`],
+         clef: clef,
+         keys: [`c/${clefOctave[clef].c}`],
          duration: "q",
       }),
       d: new StaveNote({
-         keys: [`d/5`],
+         clef: clef,
+         keys: [`d/${clefOctave[clef].d}`],
          duration: "q",
       }),
       e: new StaveNote({
-         keys: [`e/5`],
+         clef: clef,
+         keys: [`e/${clefOctave[clef].e}`],
          duration: "q",
       }),
       f: new StaveNote({
-         keys: [`f/4`],
+         clef: clef,
+         keys: [`f/${clefOctave[clef].f}`],
          duration: "q",
       }),
       g: new StaveNote({
-         keys: [`g/4`],
+         clef: clef,
+         keys: [`g/${clefOctave[clef].g}`],
          duration: "q",
       }),
    };
@@ -209,7 +251,6 @@ function renderNote(note, clef) {
       div.removeChild(div.lastChild);
    }
    let renderer = new Renderer(div, Renderer.Backends.SVG);
-   // renderer.
    // Configure the rendering context.
    renderer.resize(300, 300);
    const context = renderer.getContext();
@@ -237,8 +278,14 @@ function renderNote(note, clef) {
    }
 
    let notes = [staveNote];
-   // }
 
    // Helper function to justify and drawe.
    Formatter.FormatAndDraw(context, stave, notes);
+}
+
+const synth = new Tone.Synth().toDestination();
+function playNote(note, clef) {
+   const synthString = `${note.toUpperCase()}${clefOctave[clef][note]}`;
+   console.log(synthString);
+   synth.triggerAttackRelease(synthString, "8n");
 }
