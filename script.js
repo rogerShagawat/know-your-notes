@@ -1,23 +1,27 @@
 let totalIncorrect = 0;
 let totalCorrect = 0;
-let currentNote = 0;
+let currentNote = "";
 let isFirstClick = true;
 let isDropDownOpen = false;
+let currentClef = "treble";
 
 function generateRandomNote(isAccidentalOn) {
    const noteLetter = String.fromCharCode(Math.floor(Math.random() * 7) + 97);
+   let note = noteLetter;
    if (isAccidentalOn) {
       const accidentalness = Math.floor(Math.random() * 3);
       if (accidentalness === 0) {
-         return `${noteLetter}`;
+         note = `${noteLetter}`;
       } else if (accidentalness === 1) {
-         return `${noteLetter}-flat`;
+         note = `${noteLetter}-flat`;
       } else {
-         return `${noteLetter}-sharp`;
+         note = `${noteLetter}-sharp`;
       }
-   } else {
-      return noteLetter;
    }
+   if (note === currentNote) {
+      note = generateRandomNote(isAccidentalOn);
+   }
+   return note;
 }
 
 function setMessage(message) {
@@ -39,12 +43,16 @@ function getRandomImageForClef() {
       isAccidentalOn = true;
    }
    noteName = generateRandomNote(isAccidentalOn);
+
    let instrumentSelector = document.getElementById("instrument-selector");
    clef = instrumentSelector.value;
+
+   renderNote(noteName, clef);
+
    console.log(noteName);
    currentNote = noteName;
 
-   document.getElementById("note-image").src = `assets/${noteName}-${clef}.png`;
+   // document.getElementById("note-image").src = `assets/${noteName}-${clef}.png`;
 }
 
 function updateCounters() {
@@ -69,7 +77,7 @@ function toggleButtonColors() {
 function onNoteSelection(event) {
    if (isFirstClick) {
       timer = true;
-      stopWatch(); // in timer.js
+      startTimer(); // in timer.js
       isFirstClick = false;
    }
 
@@ -160,3 +168,77 @@ function clickOffDropdown(event) {
 }
 
 window.addEventListener("click", clickOffDropdown);
+
+function renderNote(note, clef) {
+   console.log(`${note}, ${clef}`);
+   const { Accidental, Formatter, Renderer, Stave, StaveNote } = Vex.Flow;
+   const noteDict = {
+      a: new StaveNote({
+         keys: [`a/4`],
+         duration: "q",
+      }),
+      b: new StaveNote({
+         keys: [`b/4`],
+         duration: "q",
+      }),
+      c: new StaveNote({
+         keys: [`c/5`],
+         duration: "q",
+      }),
+      d: new StaveNote({
+         keys: [`d/5`],
+         duration: "q",
+      }),
+      e: new StaveNote({
+         keys: [`e/5`],
+         duration: "q",
+      }),
+      f: new StaveNote({
+         keys: [`f/4`],
+         duration: "q",
+      }),
+      g: new StaveNote({
+         keys: [`g/4`],
+         duration: "q",
+      }),
+   };
+
+   // Create an SVG renderer and attach it to the DIV element named "boo".
+   const div = document.getElementById("output");
+   while (div.hasChildNodes()) {
+      div.removeChild(div.lastChild);
+   }
+   let renderer = new Renderer(div, Renderer.Backends.SVG);
+   // renderer.
+   // Configure the rendering context.
+   renderer.resize(300, 300);
+   const context = renderer.getContext();
+   context.setFont("Arial", 10);
+   context.scale(2.5, 2.5);
+
+   // Create a stave of width 400 at position 10, 40 on the canvas.
+   const stave = new Stave(10, 10, 100);
+
+   // Add a clef.
+   stave.addClef(clef);
+
+   // Connect it to the rendering context and draw!
+   stave.setContext(context).draw();
+
+   let splitNote = note.split("-");
+   let staveNote = noteDict[splitNote[0]];
+
+   if (splitNote[1]) {
+      if (splitNote[1] === "flat") {
+         staveNote.addModifier(new Accidental("b"), 0);
+      } else if (splitNote[1] === "sharp") {
+         staveNote.addModifier(new Accidental("#"), 0);
+      }
+   }
+
+   let notes = [staveNote];
+   // }
+
+   // Helper function to justify and drawe.
+   Formatter.FormatAndDraw(context, stave, notes);
+}
