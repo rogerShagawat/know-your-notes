@@ -78,7 +78,7 @@ function getRandomImageForClef() {
    clef = instrumentSelector.value;
    currentClef = clef;
 
-   renderNote(noteName, clef);
+   renderNote(noteName, clef, "output", 300, 300, 2.5);
 
    // console.log(`${currentNote} ${currentClef}`); //DEBUG
    currentNote = noteName;
@@ -135,6 +135,7 @@ function onNoteSelection(event) {
          note = baseNote.toUpperCase();
       }
       setMessage(`Sorry, the correct note was ${note}`);
+      renderNote(currentNote, currentClef, "feedback-note", 150, 120, 1);
    }
 
    getRandomImageForClef();
@@ -213,7 +214,7 @@ function clickOffDropdown(event) {
 
 window.addEventListener("click", clickOffDropdown);
 
-function renderNote(note, clef) {
+function renderNote(note, clef, id, height, width, scale) {
    const { Accidental, Formatter, Renderer, Stave, StaveNote } = Vex.Flow;
 
    const noteDict = {
@@ -255,16 +256,16 @@ function renderNote(note, clef) {
    };
 
    // Create an SVG renderer and attach it to the DIV element named "boo".
-   const div = document.getElementById("output");
+   const div = document.getElementById(id);
    while (div.hasChildNodes()) {
       div.removeChild(div.lastChild);
    }
    let renderer = new Renderer(div, Renderer.Backends.SVG);
    // Configure the rendering context.
-   renderer.resize(300, 300);
+   renderer.resize(width, height);
    const context = renderer.getContext();
    context.setFont("Arial", 10);
-   context.scale(2.5, 2.5);
+   context.scale(scale, scale);
 
    // Create a stave of width 400 at position 10, 40 on the canvas.
    const stave = new Stave(10, 10, 100);
