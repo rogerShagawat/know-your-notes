@@ -9,13 +9,16 @@ let second = 0;
 let count = 0;
 let stopWatchExists = false;
 
-startBtn.addEventListener("click", function () {
+function startTimer() {
    timer = true;
+   isFirstClick = true;
    if (!stopWatchExists) {
       stopWatchExists = true;
       stopWatch();
    }
-});
+}
+
+startBtn.addEventListener("click", startTimer);
 
 stopBtn.addEventListener("click", function () {
    timer = false;
