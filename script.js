@@ -80,7 +80,7 @@ function getRandomImageForClef() {
 
    renderNote(noteName, clef);
 
-   console.log(noteName);
+   // console.log(`${currentNote} ${currentClef}`); //DEBUG
    currentNote = noteName;
 
    // document.getElementById("note-image").src = `assets/${noteName}-${clef}.png`;
@@ -285,7 +285,17 @@ function renderNote(note, clef) {
 
 const synth = new Tone.Synth().toDestination();
 function playNote(note, clef) {
-   const synthString = `${note.toUpperCase()}${clefOctave[clef][note]}`;
-   console.log(synthString);
+   // console.log(`playnote: ${note} ${clef}`); //DEBUG
+   baseNote = note.substring(0, 1);
+   note = note.toLowerCase();
+   if (note.includes("sharp")) {
+      note = `${baseNote.toUpperCase()}#`;
+   } else if (note.includes("flat")) {
+      note = `${baseNote.toUpperCase()}b`;
+   } else {
+      note = baseNote.toUpperCase();
+   }
+   const synthString = `${note}${clefOctave[clef][baseNote]}`;
+   // console.log(synthString); //DEBUG
    synth.triggerAttackRelease(synthString, "8n");
 }
