@@ -125,7 +125,16 @@ function onNoteSelection(event) {
    } else {
       // Incorrect
       totalIncorrect++;
-      setMessage(`Sorry, the correct note was ${currentNote.toUpperCase()}`);
+      const baseNote = currentNote.substring(0, 1);
+      let note = currentNote.toLowerCase();
+      if (note.includes("sharp")) {
+         note = `${baseNote.toUpperCase()}#`;
+      } else if (note.includes("flat")) {
+         note = `${baseNote.toUpperCase()}b`;
+      } else {
+         note = baseNote.toUpperCase();
+      }
+      setMessage(`Sorry, the correct note was ${note}`);
    }
 
    getRandomImageForClef();
@@ -286,7 +295,7 @@ function renderNote(note, clef) {
 const synth = new Tone.Synth().toDestination();
 function playNote(note, clef) {
    // console.log(`playnote: ${note} ${clef}`); //DEBUG
-   baseNote = note.substring(0, 1);
+   const baseNote = note.substring(0, 1);
    note = note.toLowerCase();
    if (note.includes("sharp")) {
       note = `${baseNote.toUpperCase()}#`;
