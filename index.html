@@ -14,7 +14,7 @@
 
 <body>
 
-   <div class="dropdown">
+   <div class="dropdown" id="dropdown">
       <button onclick="settingsDropdownEvent()" class="dropbtn">
          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear"
             viewBox="0 0 16 16">
@@ -37,7 +37,7 @@
          <div class="menu-play-sound">
             <label class="switch">
                Play Sounds
-               <input type="checkbox" id="play-sound">
+               <input type="checkbox" id="play-sound" checked>
                <span class="slider round"></span>
             </label>
          </div>
@@ -62,35 +62,43 @@
 
    </div>
 
-   <div class="timer container">
-      <div id="time">
-         <span class="digit" id="hr">
-            00</span>
-         <span class="txt">:</span>
-         <span class="digit" id="min">
-            00</span>
-         <span class="txt">:</span>
-         <span class="digit" id="sec">
-            00</span>
+   <div id="score-and-timer">
+      <div class="timer container">
+         <div id="time">
+            <span class="digit" id="hr">
+               00</span>
+            <span class="txt">:</span>
+            <span class="digit" id="min">
+               00</span>
+            <span class="txt">:</span>
+            <span class="digit" id="sec">
+               00</span>
+         </div>
+         <div id="buttons">
+            <button class="timerbtn" id="start">
+               Start</button>
+            <button class="timerbtn" id="stop">
+               Stop</button>
+            <button class="timerbtn" id="reset">
+               Reset</button>
+         </div>
       </div>
-      <div id="buttons">
-         <button class="timerbtn" id="start">
-            Start</button>
-         <button class="timerbtn" id="stop">
-            Stop</button>
-         <button class="timerbtn" id="reset">
-            Reset</button>
+
+      <div class="score container">
+         <span class="score-counter" id="correct-counter">Correct: 0</span>
+         <span class="score-counter" id="incorrect-counter">Incorrect:0</span>
       </div>
    </div>
 
-   <div class="score-counters">
-      <span class="score-counter" id="correct-counter">Correct: 0</span>
-      <span class="score-counter" id="incorrect-counter">Incorrect:0</span>
-   </div>
+
 
    <div class="d-flex  justify-content-center">
-      <img id="note-image" src="./assets/a-treble.png" alt="The note image" width="400" height="300">
+      <!-- <img id="note-image" src="./assets/a-treble.png" alt="The note image" width="400" height="300"> -->
+
+      <div id="output"></div>
+      <!-- <img id="note-image" src="./assets/a-treble.png" alt="The note image" width="400" height="300"> -->
    </div>
+
 
    <div id="all-note-buttons">
       <div class="d-flex justify-content-around" id="note-buttons-sharps" style="visibility: hidden;">
@@ -128,6 +136,10 @@
       <h2 id="message"></h2>
    </div>
 
+   <div class="d-flex  justify-content-center" id="feedback-note"></div>
+
+   <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/tone@14.7"></script>
    <script src="button-elements.js"></script>
    <script src="timer.js"></script>
    <script src="script.js"></script>

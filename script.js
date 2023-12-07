@@ -1,24 +1,57 @@
+const clefOctave = {
+   treble: {
+      a: 4,
+      b: 4,
+      c: 5,
+      d: 5,
+      e: 5,
+      f: 4,
+      g: 4,
+   },
+   bass: {
+      a: 2,
+      b: 2,
+      c: 3,
+      d: 3,
+      e: 3,
+      f: 3,
+      g: 3,
+   },
+   alto: {
+      a: 3,
+      b: 3,
+      c: 4,
+      d: 4,
+      e: 4,
+      f: 4,
+      g: 3,
+   },
+};
+
 let totalIncorrect = 0;
 let totalCorrect = 0;
-let currentNote = 0;
+let currentNote = "";
 let isFirstClick = true;
+let isDropDownOpen = false;
+let currentClef = "treble";
 
 function generateRandomNote(isAccidentalOn) {
-   //Returns a number
-   //E.g. 65 (which represents A)
    const noteLetter = String.fromCharCode(Math.floor(Math.random() * 7) + 97);
+   let note = noteLetter;
    if (isAccidentalOn) {
       const accidentalness = Math.floor(Math.random() * 3);
       if (accidentalness === 0) {
-         return `${noteLetter}`;
+         note = `${noteLetter}`;
       } else if (accidentalness === 1) {
-         return `${noteLetter}-flat`;
+         note = `${noteLetter}-flat`;
       } else {
-         return `${noteLetter}-sharp`;
+         note = `${noteLetter}-sharp`;
       }
-   } else {
-      return noteLetter;
    }
+   if (note === currentNote) {
+      note = generateRandomNote(isAccidentalOn);
+   }
+   return note;
 }
 
 function setMessage(message) {
@@ -40,12 +73,17 @@ function getRandomImageForClef() {
       isAccidentalOn = true;
    }
    noteName = generateRandomNote(isAccidentalOn);
+
    let instrumentSelector = document.getElementById("instrument-selector");
    clef = instrumentSelector.value;
-   console.log(noteName);
+   currentClef = clef;
+
+   renderNote(noteName, clef, "output", 300, 300, 2.5);
+
+   // console.log(`${currentNote} ${currentClef}`); //DEBUG
    currentNote = noteName;
 
-   document.getElementById("note-image").src = `assets/${noteName}-${clef}.png`;
+   // document.getElementById("note-image").src = `assets/${noteName}-${clef}.png`;
 }
 
 function updateCounters() {
@@ -60,13 +98,6 @@ function toggleButtonColors() {
       Object.keys(buttonNotes).forEach((button) =>
          buttonNotes[button].classList.remove("uncolored")
       );
-      // document.getElementById("a").style.backgroundColor = "indigo";
-      // document.getElementById("b").style.backgroundColor = "violet";
-      // document.getElementById("c").style.backgroundColor = "red";
-      // document.getElementById("d").style.backgroundColor = "orange";
-      // document.getElementById("e").style.backgroundColor = "yellow";
-      // document.getElementById("f").style.backgroundColor = "green";
-      // document.getElementById("g").style.backgroundColor = "blue";
    } else {
       Object.keys(buttonNotes).forEach((button) =>
          buttonNotes[button].classList.add("uncolored")
@@ -75,14 +106,23 @@ function toggleButtonColors() {
 }
 
 function onNoteSelection(event) {
+   if (document.getElementById("play-sound").checked) {
+      playNote(currentNote, currentClef);
+   }
+
    if (isFirstClick) {
       timer = true;
-      stopWatch(); // in timer.js
+      startTimer(); // in timer.js
       isFirstClick = false;
    }
 
+   const div = document.getElementById("feedback-note");
+   while (div.hasChildNodes()) {
+      div.removeChild(div.lastChild);
+   }
+
    var selectedNote = event.target.id;
-   console.log(selectedNote);
+   // console.log(selectedNote);
    if (selectedNote === currentNote) {
       // Correct
       totalCorrect++;
@@ -90,7 +130,17 @@ function onNoteSelection(event) {
    } else {
       // Incorrect
       totalIncorrect++;
-      setMessage(`Sorry, the correct note was ${currentNote.toUpperCase()}`);
+      const baseNote = currentNote.substring(0, 1);
+      let note = currentNote.toLowerCase();
+      if (note.includes("sharp")) {
+         note = `${baseNote.toUpperCase()}#`;
+      } else if (note.includes("flat")) {
+         note = `${baseNote.toUpperCase()}b`;
+      } else {
+         note = baseNote.toUpperCase();
+      }
+      setMessage(`Sorry, the correct note was ${note}`);
+      renderNote(currentNote, currentClef, "feedback-note", 150, 120, 1);
    }
 
    getRandomImageForClef();
@@ -99,7 +149,7 @@ function onNoteSelection(event) {
 
 function toggleAccidentalVisibility() {
    getRandomImageForClef();
-   console.log(`Checked: ${document.getElementById("accidentals").checked}`);
+   // console.log(`Checked: ${document.getElementById("accidentals").checked}`);
    if (document.getElementById("accidentals").checked) {
       Object.keys(buttonNotes).forEach((button) => {
          if (
@@ -122,7 +172,14 @@ function toggleAccidentalVisibility() {
 // Listeners/Events
 
 function settingsDropdownEvent() {
-   document.getElementById("myDropdown").classList.toggle("show");
+   let drop = document.getElementById("myDropdown");
+   // console.log("here");
+   drop.classList.toggle("show");
+   if (drop.classList.value.includes("show")) {
+      isDropDownOpen = true;
+   } else {
+      isDropDownOpen = false;
+   }
 }
 
 window.onload = getRandomImageForClef();
@@ -151,3 +208,109 @@ document.getElementById("reset").addEventListener("click", () => {
    isFirstClick = true;
    updateCounters();
 });
+
+function clickOffDropdown(event) {
+   const target = event.target.closest("#dropdown");
+   if (!target && isDropDownOpen) {
+      document.getElementById("myDropdown").classList.toggle("show");
+      isDropDownOpen = false;
+   }
+}
+
+window.addEventListener("click", clickOffDropdown);
+
+function renderNote(note, clef, id, height, width, scale) {
+   const { Accidental, Formatter, Renderer, Stave, StaveNote } = Vex.Flow;
+
+   const noteDict = {
+      a: new StaveNote({
+         clef: clef,
+         keys: [`a/${clefOctave[clef].a}`],
+         duration: "q",
+      }),
+      b: new StaveNote({
+         clef: clef,
+         keys: [`b/${clefOctave[clef].b}`],
+         duration: "q",
+      }),
+      c: new StaveNote({
+         clef: clef,
+         keys: [`c/${clefOctave[clef].c}`],
+         duration: "q",
+      }),
+      d: new StaveNote({
+         clef: clef,
+         keys: [`d/${clefOctave[clef].d}`],
+         duration: "q",
+      }),
+      e: new StaveNote({
+         clef: clef,
+         keys: [`e/${clefOctave[clef].e}`],
+         duration: "q",
+      }),
+      f: new StaveNote({
+         clef: clef,
+         keys: [`f/${clefOctave[clef].f}`],
+         duration: "q",
+      }),
+      g: new StaveNote({
+         clef: clef,
+         keys: [`g/${clefOctave[clef].g}`],
+         duration: "q",
+      }),
+   };
+
+   // Create an SVG renderer and attach it to the DIV element named "boo".
+   const div = document.getElementById(id);
+   while (div.hasChildNodes()) {
+      div.removeChild(div.lastChild);
+   }
+   let renderer = new Renderer(div, Renderer.Backends.SVG);
+   // Configure the rendering context.
+   renderer.resize(width, height);
+   const context = renderer.getContext();
+   context.setFont("Arial", 10);
+   context.scale(scale, scale);
+
+   // Create a stave of width 400 at position 10, 40 on the canvas.
+   const stave = new Stave(10, 10, 100);
+
+   // Add a clef.
+   stave.addClef(clef);
+
+   // Connect it to the rendering context and draw!
+   stave.setContext(context).draw();
+
+   let splitNote = note.split("-");
+   let staveNote = noteDict[splitNote[0]];
+
+   if (splitNote[1]) {
+      if (splitNote[1] === "flat") {
+         staveNote.addModifier(new Accidental("b"), 0);
+      } else if (splitNote[1] === "sharp") {
+         staveNote.addModifier(new Accidental("#"), 0);
+      }
+   }
+
+   let notes = [staveNote];
+
+   // Helper function to justify and drawe.
+   Formatter.FormatAndDraw(context, stave, notes);
+}
+
+const synth = new Tone.Synth().toDestination();
+function playNote(note, clef) {
+   // console.log(`playnote: ${note} ${clef}`); //DEBUG
+   const baseNote = note.substring(0, 1);
+   note = note.toLowerCase();
+   if (note.includes("sharp")) {
+      note = `${baseNote.toUpperCase()}#`;
+   } else if (note.includes("flat")) {
+      note = `${baseNote.toUpperCase()}b`;
+   } else {
+      note = baseNote.toUpperCase();
+   }
+   const synthString = `${note}${clefOctave[clef][baseNote]}`;
+   // console.log(synthString); //DEBUG
+   synth.triggerAttackRelease(synthString, "8n");
+}
