@@ -78,7 +78,7 @@ function getRandomImageForClef() {
    clef = instrumentSelector.value;
    currentClef = clef;
 
-   renderNote(noteName, clef, "output", 300, 300, 2.5);
+   renderNote(noteName, clef, "output", 270, 300, 2.5);
 
    // console.log(`${currentNote} ${currentClef}`); //DEBUG
    currentNote = noteName;
@@ -268,7 +268,7 @@ function renderNote(note, clef, id, height, width, scale) {
    let renderer = new Renderer(div, Renderer.Backends.SVG);
    // Configure the rendering context.
    renderer.resize(width, height);
-   const context = renderer.getContext();
+   let context = renderer.getContext();
    context.setFont("Arial", 10);
    context.scale(scale, scale);
 
