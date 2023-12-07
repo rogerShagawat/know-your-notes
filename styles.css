@@ -170,6 +170,7 @@
 }
 
 #message {
+   margin-top: 10px;
    animation: pop 0.5s ease-in-out;
    animation-delay: 0s;
 }
@@ -178,4 +179,12 @@
    50% {
       transform: scale(1.25);
    }
+}
+
+.note.container {
+   width: 500px;
+}
+
+.note.btn {
+   margin-: 3px;
 }

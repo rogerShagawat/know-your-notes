@@ -14,6 +14,7 @@
 
 <body>
 
+   <!-- Settings button icon from 23 schools along with the dropdown structure -->
    <div class="dropdown" id="dropdown">
       <button onclick="settingsDropdownEvent()" class="dropbtn">
          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear"
@@ -100,8 +101,8 @@
    </div>
 
 
-   <div id="all-note-buttons">
-      <div class="d-flex justify-content-around" id="note-buttons-sharps" style="visibility: hidden;">
+   <div id="all-note-buttons" >
+      <div class="note container d-flex justify-content-around" id="note-buttons-sharps" style="visibility: hidden;">
          <button type="button" class="note btn a" id="a-sharp">A#</button>
          <button type="button" class="note btn b" id="b-sharp">B#</button>
          <button type="button" class="note btn c" id="c-sharp">C#</button>
@@ -111,7 +112,7 @@
          <button type="button" class="note btn g" id="g-sharp">G#</button>
       </div>
 
-      <div class="d-flex flex-row justify-content-around mb-3 mt-3" id="note-buttons">
+      <div class="note container d-flex flex-row justify-content-around mb-3 mt-3" id="note-buttons">
          <button type="button" class="note btn a" id="a">A</button>
          <button type="button" class="note btn b" id="b">B</button>
          <button type="button" class="note btn c" id="c">C</button>
@@ -121,7 +122,7 @@
          <button type="button" class="note btn g" id="g">G</button>
       </div>
 
-      <div class="d-flex flex-row justify-content-around" id="note-buttons-flats" style="visibility: hidden;">
+      <div class="note container d-flex flex-row justify-content-around" id="note-buttons-flats" style="visibility: hidden;">
          <button type="button" class="note btn a" id="a-flat">Ab</button>
          <button type="button" class="note btn b" id="b-flat">Bb</button>
          <button type="button" class="note btn c" id="c-flat">Cb</button>
