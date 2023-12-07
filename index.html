@@ -14,108 +14,8 @@
 
 <body>
 
-   <div class="score-counter">
-
-   </div>
-
-   <script src="script.js" async defer></script>
-   <script src="messages.js" async defer></script>
-   <script src="notes.js" async defer></script>
-   <script src="note-buttons.js" async defer></script>
-
-   <div class="d-flex  justify-content-center">
-      <img id="note-image" src="./assets/a-treble.png" alt="The note image">
-   </div>
-
-   <div class="d-flex justify-content-around" id="note-buttons-sharps" style="visibility: hidden;">
-
-
-      <button type="button" class="btn a" id="a">A#</button>
-      <button type="button" class="btn b" id="b">B#</button>
-      <button type="button" class="btn c" id="c">C#</button>
-      <button type="button" class="btn d" id="d">D#</button>
-      <button type="button" class="btn e" id="e">E#</button>
-      <button type="button" class="btn f" id="f">F#</button>
-      <button type="button" class="btn g" id="g">G#</button>
-
-   </div>
-   <div class="d-flex flex-row justify-content-around mb-3 mt-3" id="note-buttons">
-
-
-      <button type="button" class="btn a" id="a">A</button>
-      <button type="button" class="btn b" id="b">B</button>
-      <button type="button" class="btn c" id="c">C</button>
-      <button type="button" class="btn d" id="d">D</button>
-      <button type="button" class="btn e" id="e">E</button>
-      <button type="button" class="btn f" id="f">F</button>
-      <button type="button" class="btn g" id="g">G</button>
-
-   </div>
-   <div class="d-flex flex-row justify-content-around" id="note-buttons-flats"style="visibility: hidden;">
-
-
-      <button type="button" class="btn a" id="a">Ab</button>
-      <button type="button" class="btn b" id="b">Bb</button>
-      <button type="button" class="btn c" id="c">Cb</button>
-      <button type="button" class="btn d" id="d">Db</button>
-      <button type="button" class="btn e" id="e">Eb</button>
-      <button type="button" class="btn f" id="f">Fb</button>
-      <button type="button" class="btn g" id="g">Gb</button>
-
-   </div>
-   <div class="d-flex  justify-content-center">
-      <h2 id="message"></h2>
-   </div>
-
-   <!-- <div class="menu">
-
-      <div class="menu-accidentals">
-         <label class="switch">
-            Use Accidentals
-            <input type="checkbox" id="accidentals">
-            <span class="slider round"></span>
-         </label>
-      </div>
-
-      <div class="menu-play-sound">
-         <label class="switch">
-            Play Sounds
-            <input type="checkbox" id="play-sound">
-            <span class="slider round"></span>
-         </label>
-      </div>
-
-      <div class="menu-color-notes">
-         <label class="switch">
-            Color Notes
-            <input type="checkbox" id="color-notes">
-            <span class="slider round"></span>
-         </label>
-      </div>
-
-      <div class="menu-clef">
-         <label for="clef" id="clef">Clef</label>
-         <select name="clef">
-            <option value="treble">Treble</option>
-            <option value="bass">Bass</option>
-            <option value="alto">Alto</option>
-            <option value="tenor">Tenor</option>
-         </select>
-      </div>
-
-      <div class="menu-instrument">
-         <label for="Instrument" id="instrument">Clef</label>
-         <select name="clef">
-            <option value="treble">Violin</option>
-            <option value="bass">Viola</option>
-            <option value="alto">Vibraphone</option>
-            <option value="tenor">Vercenteorix</option>
-         </select>
-      </div>
-   </div> -->
-
    <div class="dropdown">
-      <button onclick="myFunction()" class="dropbtn">
+      <button onclick="settingsDropdownEvent()" class="dropbtn">
          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear"
             viewBox="0 0 16 16">
             <path
@@ -144,15 +44,15 @@
 
          <div class="menu-color-notes">
             <label class="switch">
-               Color Notes
-               <input type="checkbox" id="color-notes" onclick = "toggleButtonColors(this.checked)" checked>
+               Colorful Notes
+               <input type="checkbox" id="color-notes" checked>
                <span class="slider round"></span>
             </label>
          </div>
 
          <div class="menu-instrument">
-            <label for="Instrument" id="instrument">Instrument</label>
-            <select name="clef" id="instrument-selector">
+            <label for="instrument">Instrument</label>
+            <select name="instrument" id="instrument-selector">
                <option value="treble">Violin</option>
                <option value="bass">Cello</option>
                <option value="alto">Viola</option>
@@ -162,25 +62,75 @@
 
    </div>
 
-   <nav class="navbar fixed-bottom navbar-light bg-light">
+   <div class="timer container">
+      <div id="time">
+         <span class="digit" id="hr">
+            00</span>
+         <span class="txt">:</span>
+         <span class="digit" id="min">
+            00</span>
+         <span class="txt">:</span>
+         <span class="digit" id="sec">
+            00</span>
+      </div>
+      <div id="buttons">
+         <button class="timerbtn" id="start">
+            Start</button>
+         <button class="timerbtn" id="stop">
+            Stop</button>
+         <button class="timerbtn" id="reset">
+            Reset</button>
+      </div>
+   </div>
 
-      <!-- Default dropup button -->
-      <!-- <div class="btn-group dropup">
-         <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear"
-               viewBox="0 0 16 16">
-               <path
-                  d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z" />
-               <path
-                  d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z" />
-            </svg>
-         </button>
-         <div class="dropdown-menu">
+   <div class="score-counters">
+      <span class="score-counter" id="correct-counter">Correct: 0</span>
+      <span class="score-counter" id="incorrect-counter">Incorrect:0</span>
+   </div>
 
-         </div>
-      </div> -->
-   </nav>
+   <div class="d-flex  justify-content-center">
+      <img id="note-image" src="./assets/a-treble.png" alt="The note image" width="400" height="300">
+   </div>
+
+   <div id="all-note-buttons">
+      <div class="d-flex justify-content-around" id="note-buttons-sharps" style="visibility: hidden;">
+         <button type="button" class="note btn a" id="a-sharp">A#</button>
+         <button type="button" class="note btn b" id="b-sharp">B#</button>
+         <button type="button" class="note btn c" id="c-sharp">C#</button>
+         <button type="button" class="note btn d" id="d-sharp">D#</button>
+         <button type="button" class="note btn e" id="e-sharp">E#</button>
+         <button type="button" class="note btn f" id="f-sharp">F#</button>
+         <button type="button" class="note btn g" id="g-sharp">G#</button>
+      </div>
+
+      <div class="d-flex flex-row justify-content-around mb-3 mt-3" id="note-buttons">
+         <button type="button" class="note btn a" id="a">A</button>
+         <button type="button" class="note btn b" id="b">B</button>
+         <button type="button" class="note btn c" id="c">C</button>
+         <button type="button" class="note btn d" id="d">D</button>
+         <button type="button" class="note btn e" id="e">E</button>
+         <button type="button" class="note btn f" id="f">F</button>
+         <button type="button" class="note btn g" id="g">G</button>
+      </div>
+
+      <div class="d-flex flex-row justify-content-around" id="note-buttons-flats" style="visibility: hidden;">
+         <button type="button" class="note btn a" id="a-flat">Ab</button>
+         <button type="button" class="note btn b" id="b-flat">Bb</button>
+         <button type="button" class="note btn c" id="c-flat">Cb</button>
+         <button type="button" class="note btn d" id="d-flat">Db</button>
+         <button type="button" class="note btn e" id="e-flat">Eb</button>
+         <button type="button" class="note btn f" id="f-flat">Fb</button>
+         <button type="button" class="note btn g" id="g-flat">Gb</button>
+      </div>
+   </div>
+
+   <div class="d-flex  justify-content-center" id="message-container">
+      <h2 id="message"></h2>
+   </div>
+
+   <script src="button-elements.js"></script>
+   <script src="timer.js"></script>
+   <script src="script.js"></script>
 </body>
 
 </html>
